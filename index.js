@@ -8,10 +8,13 @@ module.exports = {
   included: function(app) {
     this._super.included(app)
 
-    app.import(app.bowerDirectory + '/jsoneditor/dist/jsoneditor.js')
+    var dir = app.bowerDirectory;
+    app.import(dir + '/jsoneditor/dist/jsoneditor.js')
     app.import('vendor/shims/jsoneditor.js')
-    app.import(app.bowerDirectory + '/jsoneditor/dist/jsoneditor.css')
-    app.import(app.bowerDirectory + '/jsoneditor/dist/img/jsoneditor-icons.svg')
+    app.import(dir + '/jsoneditor/dist/jsoneditor.css')
+    app.import(dir + '/jsoneditor/dist/img/jsoneditor-icons.svg', {
+      destDir: 'assets/img'
+    })
   }
 }
 

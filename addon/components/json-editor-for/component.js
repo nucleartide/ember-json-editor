@@ -2,10 +2,11 @@
 import Ember from 'ember'
 import layout from './template'
 import JSONEditor from 'jsoneditor'
+import InboundActions from 'ember-component-inbound-actions/inbound-actions'
 
 const { K } = Ember
 
-const JSONEditorFor = Ember.Component.extend({
+const JSONEditorFor = Ember.Component.extend(InboundActions, {
 
   /**
    * Inputs.
@@ -96,13 +97,30 @@ const JSONEditorFor = Ember.Component.extend({
     this.editor = new JSONEditor(container, {
       onChange: this.onJSONChange.bind(this),
       onError:  this.get('onError'),
-      modes:    this.get('modes')
+      modes:    this.get('modes'),
+      mode:     this.get('mode')
     }, json)
+
+    this.editor.focus()
   },
 
   willDestroyElement() {
     this.editor.destroy()
     this.editor = null
+  },
+
+  actions: {
+    collapseAll() {
+      this.editor.collapseAll()
+    },
+
+    expandAll() {
+      this.editor.expandAll()
+    },
+
+    focus() {
+      this.editor.focus()
+    }
   }
 })
 

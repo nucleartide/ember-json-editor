@@ -1,8 +1,45 @@
 
 <h2 id="title">Welcome to Ember</h2>
 
-{{json-editor-for model
+<input type="text">
+
+{{json-editor-for model actionReceiver=jsonEditorFor
   onChange=(action (mut model))
   onError=(route-action 'onError')
+  mode='code'
 }}
+
+{{!--
+
+  TODO:
+
+    expanded
+    focused
+    model can be a string (.setText)
+
+--}}
+
+{{!--
+
+can't call methods on the component itself
+
+can call methods on the component if you pass in an object with methods
+
+  {{json-editor-for model proxy=(mut proxy)}}
+
+  // inside the component's parent, code below will work
+  proxy.collapseAll()
+
+  // need to do cleanup too
+
+alternatively, pass in an event proxy
+
+  {{json-editor-for model eventProxy=eventProxy}}
+
+  // inside the component's parent, code below will work
+  eventProxy.trigger('collapseAll')
+
+  // do not need to do cleanup
+
+--}}
 

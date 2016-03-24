@@ -106,20 +106,6 @@ const JSONEditorFor = Ember.Component.extend({
   willDestroyElement() {
     this.editor.destroy()
     this.editor = null
-  },
-
-  actions: {
-    collapseAll() {
-      this.editor.collapseAll()
-    },
-
-    expandAll() {
-      this.editor.expandAll()
-    },
-
-    focus() {
-      this.editor.focus()
-    }
   }
 })
 

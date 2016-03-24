@@ -1,5 +1,8 @@
 
 <h2 id="title">Welcome to Ember</h2>
 
-{{json-editor-for model update=(action (mut model))}}
+{{json-editor-for model
+  onChange=(action (mut model))
+  onError=(route-action 'onError')
+}}
 

@@ -2,11 +2,10 @@
 import Ember from 'ember'
 import layout from './template'
 import JSONEditor from 'jsoneditor'
-import InboundActions from 'ember-component-inbound-actions/inbound-actions'
 
 const { K } = Ember
 
-const JSONEditorFor = Ember.Component.extend(InboundActions, {
+const JSONEditorFor = Ember.Component.extend({
 
   /**
    * Inputs.

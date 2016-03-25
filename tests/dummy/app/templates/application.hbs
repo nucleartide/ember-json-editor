@@ -1,10 +1,8 @@
 
 <h2 id="title">JSON editor demo</h2>
 
-{{json-editor-for
-  model onChange=(route-action 'onChange')
+{{json-editor-for model actionReceiver=jsonEditorFor
   mode=mode onModeChange=(action (mut mode))
-  actionReceiver=jsonEditorFor
 }}
 
 {{#power-select

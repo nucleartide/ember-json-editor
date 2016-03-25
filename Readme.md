@@ -27,5 +27,5 @@ See the [demo][1].
 > GitHub [@nucleartide](https://github.com/nucleartide) &nbsp;&middot;&nbsp;
 > Twitter [@nucleartide](https://twitter.com/nucleartide)
 
-[1]: http://google.com
+[1]: https://nucleartide.github.io/ember-json-editor-for
 

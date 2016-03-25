@@ -1,14 +1,11 @@
 
-<h2 id="title">Welcome to Ember</h2>
+<h2 id="title">JSON editor demo</h2>
 
 {{json-editor-for
-  model
+  model onChange=(route-action 'onChange')
   mode=mode onModeChange=(action (mut mode))
-  focus=focus
-  collapseAll=true
+  actionReceiver=jsonEditorFor
 }}
-
-<button onclick={{route-action 'onClick'}}>focus: {{focus}}</button>
 
 {{#power-select
   options=modes
@@ -19,4 +16,9 @@
 }}
   {{name}}
 {{/power-select}}
+
+<button onclick={{route-action 'focus'}}>Focus on editor</button>
+<button onclick={{route-action 'expandAll'}}>Expand all</button>
+<button onclick={{route-action 'collapseAll'}}>Collapse all</button>
+<button onclick={{route-action 'getJSON'}}>Get JSON</button>
 

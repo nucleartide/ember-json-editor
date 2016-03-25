@@ -4,8 +4,10 @@ import Ember from 'ember'
 export default Ember.Route.extend({
   model() {
     return {
-      "hello": "jason",
-      "hi":    "jesse"
+      hot:    'dog',
+      red:    'blue',
+      cheese: 'steaks',
+      ember:  'is better than angular'
     }
   },
 
@@ -15,19 +17,33 @@ export default Ember.Route.extend({
     const modes = ['tree', 'view', 'form', 'code', 'text']
     this.controllerFor('application').set('modes', modes)
     this.controllerFor('application').set('mode', modes[0])
-    this.controllerFor('application').set('focus', true)
+  },
+
+  getEditor() {
+    return this.controllerFor('application').get('jsonEditorFor')
   },
 
   actions: {
-    onClick() {
-      this.controllerFor('application').toggleProperty('focus')
-    },
-
-    /**
-     * @param {String} newMode
-     */
     onModeChange(newMode) {
       this.controllerFor('application').set('mode', newMode)
+    },
+
+    focus() {
+      this.getEditor().send('focus')
+    },
+
+    expandAll() {
+      this.getEditor().send('expandAll')
+    },
+
+    collapseAll() {
+      this.getEditor().send('collapseAll')
+    },
+
+    getJSON(json) {
+      this.getEditor().send('getJSON', json => {
+        console.log(json)
+      })
     }
   }
 })

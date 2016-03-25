@@ -1,5 +1,10 @@
 
 .json-editor-for {
   height: 50vh;
+  margin-bottom: 0.83em;
+}
+
+.ember-power-select {
+  margin-bottom: 0.83em;
 }
 

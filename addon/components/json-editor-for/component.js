@@ -2,10 +2,11 @@
 import Ember from 'ember'
 import layout from './template'
 import JSONEditor from 'jsoneditor'
+import InboundActions from 'ember-component-inbound-actions/inbound-actions'
 
 const { K } = Ember
 
-const JSONEditorFor = Ember.Component.extend({
+const JSONEditorFor = Ember.Component.extend(InboundActions, {
 
   /**
    * Inputs.
@@ -52,6 +53,13 @@ const JSONEditorFor = Ember.Component.extend({
   // @type {String|undefined}
   name: undefined,
 
+  /**
+   * @type {String|undefined}
+   */
+  normalizedName: Ember.computed('name', function() {
+    return this.get('name') || undefined
+  }),
+
   // @type {Object}
   schema: null,
 
@@ -64,17 +72,8 @@ const JSONEditorFor = Ember.Component.extend({
   // @type {String}
   theme: 'ace/theme/jsoneditor',
 
-  // @type {Boolean}
-  expandAll: false,
-
-  // @type {Boolean}
-  collapseAll: false,
-
-  // @type {Boolean}
-  focus: true,
-
   /**
-   * Properties.
+   * Component state.
    */
 
   layout,
@@ -86,20 +85,6 @@ const JSONEditorFor = Ember.Component.extend({
   /**
    * Callbacks.
    */
-
-  init() {
-    this._super(...arguments)
-  },
-
-  /**
-   * @param {String} newMode
-   * @param {String} oldMode
-   */
-  handleOnModeChange(newMode, oldMode) {
-    this.get('onModeChange')(newMode, oldMode)
-    this.handleExpandAndCollapse()
-    this.handleFocus()
-  },
 
   didInsertElement() {
     this._super(...arguments)
@@ -128,61 +113,43 @@ const JSONEditorFor = Ember.Component.extend({
       if (value === null) delete options[key]
     })
 
-    // wrap this for the case when mode changes via jsoneditor's UI
-    options.onModeChange = this.handleOnModeChange.bind(this)
-
     // jsoneditor dislikes empty name strings, but undefined is fine
-    options.name = this.normalizeName(options.name)
+    options.name = this.get('normalizedName')
 
     // make editor
     const container = this.$()[0]
     const json      = this.get('json')
     this.editor     = new JSONEditor(container, options, json)
-
-    // handle properties that are not jsoneditor options
-    this.handleExpandAndCollapse()
-    this.handleFocus()
   },
-
-  /**
-   * @param {String} name
-   */
-  normalizeName(name) { return name || undefined },
 
   didUpdateAttrs() {
     this._super(...arguments)
-    this.editor.set(this.get('json'))
     this.editor.setMode(this.get('mode'))
-    this.editor.setName(this.normalizeName(this.get('name')))
-    this.editor.setSchema(this.get('schema'))
-  },
-
-  handleExpandAndCollapse() {
-    const mode = this.get('mode')
-    if (mode !== 'tree' && mode !== 'view' && mode !== 'form') return
-
-    const expandAll   = this.get('expandAll')
-    const collapseAll = this.get('collapseAll')
-
-    if (expandAll && collapseAll) {
-      throw new Error('cannot expandAll and collapseAll at the same time')
-    } else if (expandAll && !collapseAll) {
-      this.editor.expandAll()
-    } else if (!expandAll && collapseAll) {
-      this.editor.collapseAll()
-    }
-  },
-
-  handleFocus() {
-    Ember.run.next(this, _ => {
-      if (this.get('focus')) this.editor.focus()
-      else this.$().blur()
-    })
+    this.editor.setName(this.get('normalizedName'))
+    if (this.get('schema')) this.editor.setSchema(this.get('schema'))
   },
 
   willDestroyElement() {
     this.editor.destroy()
     this.editor = null
+  },
+
+  actions: {
+    collapseAll() {
+      this.editor.collapseAll()
+    },
+
+    expandAll() {
+      this.editor.expandAll()
+    },
+
+    focus() {
+      this.editor.focus()
+    },
+
+    getJSON(cb) {
+      cb(this.editor.get())
+    }
   }
 })
 

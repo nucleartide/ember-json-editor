@@ -134,7 +134,7 @@ const JSONEditorFor = Ember.Component.extend({
     // make editor
     const container = this.$()[0]
     const json      = this.get('json')
-    this.editor = new JSONEditor(container, options, json)
+    this.editor     = new JSONEditor(container, options, json)
 
     // handle properties that are not jsoneditor options
     if (this.get('expandAll')) this.editor.expandAll()

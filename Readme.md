@@ -1,7 +1,7 @@
 
 # ember-json-editor-for
 
-Ember component for @josdejong's JSON editor.
+Ember component for [**@josdejong**]'s JSON editor.
 
 ## Installation
 
@@ -84,4 +84,5 @@ avoid editor jumpiness. Supported inbound actions:
 [3]: https://github.com/josdejong/jsoneditor/blob/master/docs/api.md
 [4]: https://github.com/josdejong/jsoneditor#json-editor
 [5]: https://github.com/GavinJoyce/ember-component-inbound-actions
+[6]: https://github.com/josdejong
 

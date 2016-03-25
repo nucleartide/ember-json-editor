@@ -9,9 +9,9 @@ Ember component for @josdejong's JSON editor.
 $ ember install ember-json-editor-for
 ```
 
-## Running Tests
+## Example
 
-* `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
+```hbs
+{{json-editor-for json}}
+```
 

@@ -18,9 +18,7 @@ See the [demo][1] and [code][2].
 {{json-editor-for json}}
 
 {{!-- mode is updated via DDAU --}}
-{{json-editor-for json
-  mode=mode onModeChange=(action (mut mode))
-}}
+{{json-editor-for json mode=mode onModeChange=(action (mut mode))}}
 ```
 
 ## API

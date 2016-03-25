@@ -24,7 +24,7 @@ const JSONEditorFor = Ember.Component.extend({
   ajv: null,
 
   // @type {Function}
-  onChange: null,
+  onChange: K,
 
   // @type {Function}
   onEditable: null,
@@ -33,7 +33,7 @@ const JSONEditorFor = Ember.Component.extend({
   onError: K,
 
   // @type {Function}
-  onModeChange: null,
+  onModeChange: K,
 
   // @type {Boolean}
   escapeUnicode: false,
@@ -44,12 +44,16 @@ const JSONEditorFor = Ember.Component.extend({
   // @type {String}
   mode: 'tree',
 
-  // @static
-  // @type {Array<String>}
+  /**
+   * Note: unless overridden, this array is shared across all instances of this
+   * component.
+   *
+   * @type {Array<String>}
+   */
   modes: ['tree', 'view', 'form', 'code', 'text'],
 
-  // @type {String}
-  name: '',
+  // @type {String|undefined}
+  name: undefined,
 
   // @type {Object}
   schema: null,
@@ -62,6 +66,12 @@ const JSONEditorFor = Ember.Component.extend({
 
   // @type {String}
   theme: 'ace/theme/jsoneditor',
+
+  // @type {Boolean}
+  expandAll: false,
+
+  // @type {Boolean}
+  focus: true,
 
   /**
    * Properties.
@@ -90,17 +100,45 @@ const JSONEditorFor = Ember.Component.extend({
   didInsertElement() {
     this._super(...arguments)
 
+    // get options
+    const options = this.getProperties([
+      'ace',
+      'ajv',
+      'onChange',
+      'onEditable',
+      'onError',
+      'onModeChange',
+      'escapeUnicode',
+      'history',
+      'mode',
+      'modes',
+      'name',
+      'schema',
+      'search',
+      'indentation',
+      'theme',
+    ])
+
+    // filter out null values
+    Object.keys(options).forEach(key => {
+      const value = options[key]
+      if (value === null) delete options[key]
+    })
+
+    // jsoneditor calls onChange without parameters, so need to wrap
+    options.onChange = this.onJSONChange.bind(this)
+
+    // jsoneditor dislikes empty name strings, but undefined is fine
+    options.name = options.name || undefined
+
+    // make editor
     const container = this.$()[0]
     const json      = this.get('json')
+    this.editor = new JSONEditor(container, options, json)
 
-    this.editor = new JSONEditor(container, {
-      onChange: this.onJSONChange.bind(this),
-      onError:  this.get('onError'),
-      modes:    this.get('modes'),
-      mode:     this.get('mode')
-    }, json)
-
-    this.editor.focus()
+    // handle properties that are not jsoneditor options
+    if (this.get('expandAll')) this.editor.expandAll()
+    if (this.get('focus'))     this.editor.focus()
   },
 
   willDestroyElement() {

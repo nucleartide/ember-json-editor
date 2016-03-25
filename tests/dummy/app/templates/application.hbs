@@ -1,19 +1,30 @@
 
 <h2 id="title">Welcome to Ember</h2>
 
-{{json-editor-for model
-  onChange=(action (mut model))
-  onError=(route-action 'onError')
-  mode='code'
-}}
+{{log 'json:' model}}
+{{json-editor-for model}}
 
 {{!--
 
-  TODO:
-
-    expanded
-    focused
-    model can be a string (.setText)
+{{json-editor-for model
+  ace=ace
+  ajv=ajv
+  onChange=(action (mut model))
+  onEditable=onEditable
+  onError=(route-action 'onError')
+  onModeChange=(route-action 'onModeChange')
+  escapeUnicode=escapeUnicode
+  history=history
+  mode=mode // TODO try this out with a separate button
+  modes=modes
+  name=name
+  schema=schema
+  search=search
+  indentation=indentation
+  theme=theme
+  expandAll=expandAll
+  focus=focus
+}}
 
 --}}
 

@@ -24,6 +24,11 @@ See the [demo][1] and [code][2].
 {{json-editor-for json actionReceiver=jsonEditorFor}}
 ```
 
+```js
+// inside controller/component
+this.get('jsonEditorFor').send('getJSON', json => { /* ...  */ })
+```
+
 ## API
 
 #### Background
@@ -56,8 +61,6 @@ Supported options:
 
 This addon uses [inbound actions][5] to mirror JSON editor's methods and to
 avoid editor jumpiness. Supported inbound actions:
-
-Supported inbound actions:
 
 | Usage | Description |
 | --- | --- |

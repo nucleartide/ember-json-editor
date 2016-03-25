@@ -1,6 +1,6 @@
 {
   "name": "ember-json-editor-for",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ember component for @josdejong's JSON editor.",
   "directories": {
     "doc": "doc",

@@ -42,7 +42,7 @@ export default Ember.Route.extend({
 
     getJSON(json) {
       this.getEditor().send('getJSON', json => {
-        alert(JSON.stringify(json, null, 2))
+        window.alert(JSON.stringify(json, null, 2))
       })
     }
   }

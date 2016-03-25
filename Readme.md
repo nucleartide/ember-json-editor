@@ -44,7 +44,7 @@ Supported options:
 | `escapeUnicode` | --- |
 | `history` | --- |
 | `mode` | --- |
-| `modes` | modified default is `['tree', 'view', 'form', 'code', 'text']` --- |
+| `modes` | modified default is `['tree', 'view', 'form', 'code', 'text']` |
 | `name` | --- |
 | `schema` | --- |
 | `search` | --- |
@@ -59,7 +59,6 @@ instead of DDAU to work around editor jumpiness. Example:
 ```hbs
 {{json-editor-for json actionReceiver=jsonEditorFor}}
 ```
-
 ```js
 // inside your controller/component
 this.get('jsonEditorFor').send('getJSON', json => console.log('got it!', json))

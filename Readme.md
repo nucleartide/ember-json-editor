@@ -1,7 +1,7 @@
 
 # ember-json-editor-for
 
-Ember component for [**@josdejong**]'s JSON editor.
+Ember component for [**@josdejong**][6]'s JSON editor.
 
 ## Installation
 

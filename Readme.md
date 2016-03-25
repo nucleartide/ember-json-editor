@@ -34,35 +34,36 @@ Supported options:
 
 | Option | Notes |
 | --- | --- |
-| `ace` | --- |
-| `ajv` | --- |
-| `onEditable` | --- |
+| `ace` | |
+| `ajv` | |
+| `onEditable` | configuration function |
 | `onError` | use an Ember action |
 | `onModeChange` | use an Ember action |
-| `escapeUnicode` | --- |
-| `history` | --- |
-| `mode` | --- |
+| `escapeUnicode` | |
+| `history` | |
+| `mode` | |
 | `modes` | modified default is `['tree', 'view', 'form', 'code', 'text']` |
-| `name` | --- |
-| `schema` | --- |
-| `search` | --- |
-| `indentation` | --- |
-| `theme` | --- |
+| `name` | |
+| `schema` | |
+| `search` | |
+| `indentation` | |
+| `theme` | |
 
 #### Inbound actions
 
-In order to fetch changed JSON, you must use [inbound actions][5]. This is used
-instead of DDAU to work around editor jumpiness. Example:
+This addon uses [inbound actions][5] to mirror JSON editor's methods and to
+avoid editor jumpiness. For example, in order to fetch JSON:
 
 ```hbs
 {{json-editor-for json actionReceiver=jsonEditorFor}}
 ```
+
 ```js
 // inside your controller/component
 this.get('jsonEditorFor').send('getJSON', json => console.log('got it!', json))
 ```
 
-Note that `jsonEditorFor` is defined by the [inbound actions addon][5].
+Note that the [inbound actions addon][5] magically defines `jsonEditorFor`.
 Supported inbound actions:
 
 | Usage | Description |

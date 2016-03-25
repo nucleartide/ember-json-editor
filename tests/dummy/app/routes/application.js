@@ -9,9 +9,25 @@ export default Ember.Route.extend({
     }
   },
 
+  setupController(controller, model) {
+    this._super(...arguments)
+
+    const modes = ['tree', 'view', 'form', 'code', 'text']
+    this.controllerFor('application').set('modes', modes)
+    this.controllerFor('application').set('mode', modes[0])
+    this.controllerFor('application').set('focus', true)
+  },
+
   actions: {
-    onError(err) {
-      console.error(err.stack)
+    onClick() {
+      this.controllerFor('application').toggleProperty('focus')
+    },
+
+    /**
+     * @param {String} newMode
+     */
+    onModeChange(newMode) {
+      this.controllerFor('application').set('mode', newMode)
     }
   }
 })

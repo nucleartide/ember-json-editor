@@ -71,6 +71,9 @@ const JSONEditorFor = Ember.Component.extend({
   expandAll: false,
 
   // @type {Boolean}
+  collapseAll: false,
+
+  // @type {Boolean}
   focus: true,
 
   /**
@@ -87,14 +90,21 @@ const JSONEditorFor = Ember.Component.extend({
    * Callbacks.
    */
 
-  onJSONChange() {
+  handleOnChange() {
     try {
       const json = this.editor.get()
       this.get('onChange')(json)
-      console.log('change:', this.get('json'))
     } catch (err) {
       this.get('onError')(err)
     }
+  },
+
+  /**
+   * @param {String} newMode
+   * @param {String} oldMode
+   */
+  handleOnModeChange(newMode, oldMode) {
+    this.get('onModeChange')(newMode, oldMode)
   },
 
   didInsertElement() {
@@ -126,7 +136,10 @@ const JSONEditorFor = Ember.Component.extend({
     })
 
     // jsoneditor calls onChange without parameters, so need to wrap
-    options.onChange = this.onJSONChange.bind(this)
+    options.onChange = this.handleOnChange.bind(this)
+
+    // wrap this for the case when mode changes via jsoneditor's UI
+    options.onModeChange = this.handleOnModeChange.bind(this)
 
     // jsoneditor dislikes empty name strings, but undefined is fine
     options.name = options.name || undefined
@@ -135,10 +148,37 @@ const JSONEditorFor = Ember.Component.extend({
     const container = this.$()[0]
     const json      = this.get('json')
     this.editor     = new JSONEditor(container, options, json)
+  },
 
-    // handle properties that are not jsoneditor options
-    if (this.get('expandAll')) this.editor.expandAll()
-    if (this.get('focus'))     this.editor.focus()
+  didUpdateAttrs() {
+    this._super(...arguments)
+    this.editor.setMode(this.get('mode'))
+  },
+
+  handleExpandAndCollapse() {
+    const mode = this.get('mode')
+    if (mode !== 'tree' && mode !== 'view' && mode !== 'form') return
+
+    const expandAll   = this.get('expandAll')
+    const collapseAll = this.get('collapseAll')
+
+    if (expandAll && collapseAll) {
+      throw new Error('cannot expandAll and collapseAll at the same time')
+    } else if (expandAll && !collapseAll) {
+      this.editor.expandAll()
+    } else if (!expandAll && collapseAll) {
+      this.editor.collapseAll()
+    }
+  },
+
+  didRender() {
+    this._super(...arguments)
+    this.handleExpandAndCollapse()
+
+    Ember.run.next(this, _ => {
+      if (this.get('focus')) this.editor.focus()
+      else this.$().blur()
+    })
   },
 
   willDestroyElement() {

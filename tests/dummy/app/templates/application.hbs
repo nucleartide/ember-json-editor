@@ -1,30 +1,22 @@
 
 <h2 id="title">Welcome to Ember</h2>
 
-{{log 'json:' model}}
-{{json-editor-for model}}
-
-{{!--
-
-{{json-editor-for model
-  ace=ace
-  ajv=ajv
-  onChange=(action (mut model))
-  onEditable=onEditable
-  onError=(route-action 'onError')
-  onModeChange=(route-action 'onModeChange')
-  escapeUnicode=escapeUnicode
-  history=history
-  mode=mode // TODO try this out with a separate button
-  modes=modes
-  name=name
-  schema=schema
-  search=search
-  indentation=indentation
-  theme=theme
-  expandAll=expandAll
+{{json-editor-for
+  model onChange=(action (mut model))
+  mode=mode onModeChange=(action (mut mode))
   focus=focus
+  collapseAll=true
 }}
 
---}}
+<button onclick={{route-action 'onClick'}}>focus: {{focus}}</button>
+
+{{#power-select
+  options=modes
+  selected=mode
+  onchange=(route-action 'onModeChange')
+  searchEnabled=false
+  as |name|
+}}
+  {{name}}
+{{/power-select}}
 

@@ -19,6 +19,9 @@ See the [demo][1] and [code][2].
 
 {{!-- mode is updated via DDAU --}}
 {{json-editor-for json mode=mode onModeChange=(action (mut mode))}}
+
+{{!-- use ember-component-inbound-actions for fetching JSON --}}
+{{json-editor-for json actionReceiver=jsonEditorFor}}
 ```
 
 ## API
@@ -52,18 +55,8 @@ Supported options:
 #### Inbound actions
 
 This addon uses [inbound actions][5] to mirror JSON editor's methods and to
-avoid editor jumpiness. For example, in order to fetch JSON:
+avoid editor jumpiness. Supported inbound actions:
 
-```hbs
-{{json-editor-for json actionReceiver=jsonEditorFor}}
-```
-
-```js
-// inside your controller/component
-this.get('jsonEditorFor').send('getJSON', json => console.log('got it!', json))
-```
-
-Note that the [inbound actions addon][5] magically defines `jsonEditorFor`.
 Supported inbound actions:
 
 | Usage | Description |

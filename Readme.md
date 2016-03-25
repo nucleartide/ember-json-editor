@@ -34,20 +34,22 @@ Please read [JSON editor's docs][4] first.
 This addon abstracts away some [JSON editor options][3] for cleanliness.
 Supported options:
 
-- `ace`
-- `ajv`
-- `onEditable`
-- `onError`
-- `onModeChange` - use an Ember action instead
-- `escapeUnicode`
-- `history`
-- `mode`
-- `modes` - default is `['tree', 'view', 'form', 'code', 'text']`
-- `name`
-- `schema`
-- `search`
-- `indentation`
-- `theme`
+| Option | Notes |
+| --- | --- |
+| `ace` | --- |
+| `ajv` | --- |
+| `onEditable` | --- |
+| `onError` | use an Ember action |
+| `onModeChange` | use an Ember action |
+| `escapeUnicode` | --- |
+| `history` | --- |
+| `mode` | --- |
+| `modes` | modified default is `['tree', 'view', 'form', 'code', 'text']` --- |
+| `name` | --- |
+| `schema` | --- |
+| `search` | --- |
+| `indentation` | --- |
+| `theme` | --- |
 
 #### Inbound actions
 
@@ -60,12 +62,11 @@ instead of DDAU to work around editor jumpiness. Example:
 
 ```js
 // inside your controller/component
-this.get('jsonEditorFor').send('getJSON', json => {
-  console.log('got it!', json)
-})
+this.get('jsonEditorFor').send('getJSON', json => console.log('got it!', json))
 ```
 
-Note that `jsonEditorFor` is defined by [ember-component-inbound-actions][5]. Supported inbound actions:
+Note that `jsonEditorFor` is defined by the [inbound actions addon][5].
+Supported inbound actions:
 
 | Usage | Description |
 | --- | --- |

@@ -3,7 +3,7 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-json-editor',
+  name: 'ember-json-editor-for',
 
   included: function(app) {
     this._super.included(app)

@@ -1,5 +1,5 @@
 {
-  "name": "ember-json-editor",
+  "name": "ember-json-editor-for",
   "version": "0.0.0",
   "description": "The default blueprint for ember-cli addons.",
   "directories": {
@@ -42,10 +42,15 @@
   },
   "keywords": [
     "ember-addon",
+    "json-editor-for",
     "json-editor",
+    "editor-for",
+    "jsoneditorfor",
     "jsoneditor",
+    "editorfor",
     "json",
-    "editor"
+    "editor",
+    "for"
   ],
   "dependencies": {
     "ember-cli-htmlbars": "^1.0.1",

@@ -1,7 +1,8 @@
 
 <h2 id="title">JSON editor demo</h2>
 
-{{json-editor-for model actionReceiver=jsonEditorFor
+{{json-editor-for model
+  actionReceiver=jsonEditorFor
   mode=mode onModeChange=(action (mut mode))
 }}
 
@@ -19,4 +20,5 @@
 <button onclick={{route-action 'expandAll'}}>Expand all</button>
 <button onclick={{route-action 'collapseAll'}}>Collapse all</button>
 <button onclick={{route-action 'getJSON'}}>Get JSON</button>
+<button onclick={{route-action 'refreshModel'}}>Refresh model</button>
 

@@ -4,7 +4,10 @@ import layout from './template'
 import JSONEditor from 'jsoneditor'
 import InboundActions from 'ember-component-inbound-actions/inbound-actions'
 
-const { K } = Ember
+const {
+  K,
+  observer
+} = Ember
 
 const JSONEditorFor = Ember.Component.extend(InboundActions, {
 
@@ -121,6 +124,10 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
     const json      = this.get('json')
     this.editor     = new JSONEditor(container, options, json)
   },
+
+  jsonChanged: observer('json', function() {
+    this.editor.set(this.get('json'))
+  }),
 
   didUpdateAttrs() {
     this._super(...arguments)

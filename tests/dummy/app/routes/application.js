@@ -44,6 +44,10 @@ export default Ember.Route.extend({
       this.getEditor().send('getJSON', json => {
         window.alert(JSON.stringify(json, null, 2))
       })
+    },
+
+    refreshModel() {
+      this.refresh()
     }
   }
 })

@@ -133,7 +133,7 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
     this._super(...arguments)
     this.editor.setMode(this.get('mode'))
     this.editor.setName(this.get('normalizedName'))
-    if (this.get('schema')) this.editor.setSchema(this.get('schema'))
+    this.editor.setSchema(this.get('schema'))
   },
 
   willDestroyElement() {

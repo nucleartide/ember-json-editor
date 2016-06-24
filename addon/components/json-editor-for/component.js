@@ -155,6 +155,7 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
     },
 
     getJSON(cb) {
+      if (!this.editor || !this.editor.get) return
       cb(this.editor.get())
     }
   }

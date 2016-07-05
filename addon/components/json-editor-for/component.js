@@ -75,12 +75,16 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
   // @type {String}
   theme: 'ace/theme/jsoneditor',
 
+  // @type {Function}
+  onChange: K,
+
   /**
    * Component state.
    */
 
   layout,
   classNames: ['json-editor-for'],
+  _isTyping: false,
 
   // @type {JSONEditor}
   editor: null,
@@ -119,6 +123,16 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
     // jsoneditor dislikes empty name strings, but undefined is fine
     options.name = this.get('normalizedName')
 
+    options.onChange = () => {
+      this.set('_isTyping', true)
+      try {
+        this.get('onChange')(this.get('editor').get())
+      } catch (err) {
+        if (!editor.getText()) this.get('onChange')({})
+      }
+      this.set('_isTyping', false)
+    }
+
     // make editor
     const container = this.$()[0]
     const json      = this.get('json')
@@ -126,15 +140,9 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
   },
 
   jsonChanged: observer('json', function() {
-    this.editor.set(this.get('json'))
+    // Only update json if it was changed programmatically.
+    if (!this.get('_isTyping')) this.editor.set(this.get('json'))
   }),
-
-  didUpdateAttrs() {
-    this._super(...arguments)
-    this.editor.setMode(this.get('mode'))
-    this.editor.setName(this.get('normalizedName'))
-    this.editor.setSchema(this.get('schema'))
-  },
 
   willDestroyElement() {
     this.editor.destroy()

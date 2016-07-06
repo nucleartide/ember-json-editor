@@ -133,6 +133,7 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
   },
 
   onChangeWrapper() {
+    // Set to false in `jsonChanged` observer.
     this.set('_isTyping', true)
 
     const editor = this.get('editor')
@@ -142,13 +143,14 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
       // `editor.get()` throws on invalid JSON.
       if (!editor.getText()) this.get('onChange')({})
     }
-
-    this.set('_isTyping', false)
   },
 
   jsonChanged: observer('json', function() {
     // Only update json if it was changed programmatically.
     if (!this.get('_isTyping')) this.editor.set(this.get('json'))
+
+    // See `onChangeWrapper`.
+    this.set('_isTyping', false)
   }),
 
   willDestroyElement() {

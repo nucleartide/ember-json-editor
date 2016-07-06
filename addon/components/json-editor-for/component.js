@@ -125,8 +125,9 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
 
     options.onChange = () => {
       this.set('_isTyping', true)
+      const editor = this.get('editor')
       try {
-        this.get('onChange')(this.get('editor').get())
+        this.get('onChange')(editor.get())
       } catch (err) {
         if (!editor.getText()) this.get('onChange')({})
       }
@@ -134,9 +135,7 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
     }
 
     // make editor
-    const container = this.$()[0]
-    const json      = this.get('json')
-    this.editor     = new JSONEditor(container, options, json)
+    this.editor = new JSONEditor(this.element, options, this.get('json'))
   },
 
   jsonChanged: observer('json', function() {

@@ -6,7 +6,8 @@ import InboundActions from 'ember-component-inbound-actions/inbound-actions'
 
 const {
   K,
-  observer
+  observer,
+  run
 } = Ember
 
 const JSONEditorFor = Ember.Component.extend(InboundActions, {
@@ -124,18 +125,25 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
     options.name = this.get('normalizedName')
 
     options.onChange = () => {
-      this.set('_isTyping', true)
-      const editor = this.get('editor')
-      try {
-        this.get('onChange')(editor.get())
-      } catch (err) {
-        if (!editor.getText()) this.get('onChange')({})
-      }
-      this.set('_isTyping', false)
+      run.debounce(this, this.onChangeWrapper, 150)
     }
 
     // make editor
     this.editor = new JSONEditor(this.element, options, this.get('json'))
+  },
+
+  onChangeWrapper() {
+    this.set('_isTyping', true)
+
+    const editor = this.get('editor')
+    try {
+      this.get('onChange')(editor.get())
+    } catch (err) {
+      // `editor.get()` throws on invalid JSON.
+      if (!editor.getText()) this.get('onChange')({})
+    }
+
+    this.set('_isTyping', false)
   },
 
   jsonChanged: observer('json', function() {

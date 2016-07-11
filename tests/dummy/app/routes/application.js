@@ -17,6 +17,12 @@ export default Ember.Route.extend({
     const modes = ['tree', 'view', 'form', 'code', 'text']
     this.controllerFor('application').set('modes', modes)
     this.controllerFor('application').set('mode', modes[0])
+    this.controllerFor('application').set('onObjectID', this.onObjectID)
+  },
+
+  onObjectID(path) {
+    console.log(path)
+    return 'ember' // see model hook above
   },
 
   getEditor() {

@@ -82,6 +82,9 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
   // @type {Function}
   onObjectID: K,
 
+  // @type {Function}
+  onConfigureAce: K,
+
   /**
    * Component state.
    */
@@ -117,6 +120,7 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
       'indentation',
       'theme',
       'onObjectID',
+      'onConfigureAce',
     ])
 
     // filter out null values

@@ -18,11 +18,31 @@ export default Ember.Route.extend({
     this.controllerFor('application').set('modes', modes)
     this.controllerFor('application').set('mode', modes[0])
     this.controllerFor('application').set('onObjectID', this.onObjectID)
+    this.controllerFor('application').set('onConfigureAce', this.onConfigureAce)
   },
 
   onObjectID(path) {
-    console.log(path)
+    // console.log(path)
     return 'ember' // see model hook above
+  },
+
+  onConfigureAce(editor) {
+    editor.commands.addCommand({
+      name: 'highlight and join lines',
+
+      bindKey: { win: 'Ctrl-J', mac: 'Command-J' },
+
+      exec(editor) {
+        const str = editor.session.getTextRange(editor.getSelectionRange());
+        const condensed = str
+          .split('\n')
+          .map(s => s.trim())
+          .join(' ')
+        editor.insert(condensed)
+      },
+
+      readOnly: false
+    })
   },
 
   getEditor() {

@@ -153,6 +153,11 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
     this.set('_isTyping', false)
   }),
 
+  didUpdateAttrs() {
+    this._super(...arguments)
+    this.editor.setName(this.get('normalizedName'))
+  },
+
   willDestroyElement() {
     this.editor.destroy()
     this.editor = null

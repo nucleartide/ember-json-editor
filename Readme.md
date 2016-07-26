@@ -57,18 +57,6 @@ Supported options:
 | `indentation` | |
 | `theme` | |
 
-#### Inbound actions
-
-This addon uses [inbound actions][5] to mirror JSON editor's methods and to
-avoid editor jumpiness. Supported inbound actions:
-
-| Usage | Description |
-| --- | --- |
-| `.send('collapseAll')` | collapses JSON editor when in `tree`, `view`, or `form` mode |
-| `.send('expandAll')` | expands JSON editor when in `tree`, `view`, or `form` mode |
-| `.send('focus')` | set focus on JSON editor |
-| `.send('getJSON', json => { /* ... */ })` | fetch JSON
-
 ## Badges
 
 ![](https://img.shields.io/badge/license-MIT-blue.svg)

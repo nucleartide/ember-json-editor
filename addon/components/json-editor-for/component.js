@@ -163,6 +163,10 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
     this.editor = null
   },
 
+  /**
+   * TODO: property for expanded, collapsed, partially expanded
+   * TODO: property for "focus" and un-focus
+   */
   actions: {
     collapseAll() {
       this.editor.collapseAll()
@@ -175,11 +179,6 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
     focus() {
       this.editor.focus()
     },
-
-    getJSON(cb) {
-      if (!this.editor || !this.editor.get) return
-      cb(this.editor.get())
-    }
   }
 })
 

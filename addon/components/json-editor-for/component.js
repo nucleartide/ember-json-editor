@@ -146,7 +146,7 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
       if (!editor.getText()) this.get('onChange')({})
 
       // otherwise, let the user handle it
-      else throw err
+      else this.get('onError')(err, editor.getText())
     }
   },
 

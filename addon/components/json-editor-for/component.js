@@ -141,7 +141,12 @@ const JSONEditorFor = Ember.Component.extend(InboundActions, {
       this.get('onChange')(editor.get())
     } catch (err) {
       // `editor.get()` throws on invalid JSON.
+
+      // if the invalid json was an empty string, we can handle that
       if (!editor.getText()) this.get('onChange')({})
+
+      // otherwise, let the user handle it
+      else this.get('onError')(err, editor.getText())
     }
   },
 

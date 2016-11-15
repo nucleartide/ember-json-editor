@@ -1,17 +1,21 @@
 
-# ember-json-editor-for
+# ember-json-editor
 
-Ember component for [**@josdejong**][6]'s JSON editor.
+> Ember component for [**@josdejong**'s JSON
+> editor](https://github.com/josdejong/jsoneditor).
+> See the [demo](https://nucleartide.github.io/ember-json-editor).
 
-## Installation
+<img alt="json editor" src="https://raw.github.com/josdejong/jsoneditor/master/misc/jsoneditor.png">
+&nbsp;
+<img alt="code editor" src="https://raw.github.com/josdejong/jsoneditor/master/misc/codeeditor.png">
+
+## Install
 
 ```bash
-$ ember install ember-json-editor-for
+$ ember install ember-json-editor
 ```
 
-## Usage
-
-See the [demo][1] and [code][2].
+## Use
 
 ```hbs
 {{!-- default use --}}
@@ -22,11 +26,6 @@ See the [demo][1] and [code][2].
 
 {{!-- use ember-component-inbound-actions for fetching JSON --}}
 {{json-editor-for json actionReceiver=jsonEditorFor}}
-```
-
-```js
-// inside controller/component
-this.get('jsonEditorFor').send('getJSON', json => { /* ...  */ })
 ```
 
 ## API
@@ -57,6 +56,8 @@ Supported options:
 | `indentation` | |
 | `theme` | |
 
+## Other repos
+
 ## Badges
 
 ![](https://img.shields.io/badge/license-MIT-blue.svg)
@@ -67,7 +68,6 @@ Supported options:
 > GitHub [@nucleartide](https://github.com/nucleartide) &nbsp;&middot;&nbsp;
 > Twitter [@nucleartide](https://twitter.com/nucleartide)
 
-[1]: https://nucleartide.github.io/ember-json-editor-for
 [2]: https://github.com/nucleartide/ember-json-editor-for/blob/master/tests/dummy/app/templates/application.hbs
 [3]: https://github.com/josdejong/jsoneditor/blob/master/docs/api.md
 [4]: https://github.com/josdejong/jsoneditor#json-editor
